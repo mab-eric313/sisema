@@ -5,7 +5,6 @@ from api.deps import get_current_active_superuser
 from modules.auth.auth_model import Message
 from modules.utils.utils_service import generate_test_email, send_email
 
-
 router = APIRouter(prefix="/utils", tags=["Utils"])
 
 @router.post(

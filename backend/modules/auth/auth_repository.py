@@ -1,12 +1,9 @@
-from typing import Any
 
-from sqlmodel import Session, select
+from sqlmodel import Session
 
-from core.config import settings
-from modules.auth.auth_service import get_password_hash, verify_password
+from modules.auth.auth_service import verify_password
 from modules.user.user_model import User
 from modules.user.user_repository import get_user_by_email
-
 
 # Dummy hash to use for timing attack prevention when user is not found
 # This is an Argon2 hash of a random password, used to ensure constant-time comparison

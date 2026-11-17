@@ -8,15 +8,29 @@ from jwt.exceptions import InvalidTokenError
 from pydantic import ValidationError
 from sqlmodel import Session
 
-from modules.auth import auth_service as security
 from core.config import settings
 from core.db import engine
+from modules.auth import auth_service as security
 from modules.auth.auth_model import TokenPayload
 from modules.user.user_model import User
 
 reusable_oauth2 = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/auth/login/access-token"
 )
+
+
+class RoleChecker:
+    def __init__(self, allowed_roles: list[str]):
+        self.allowed_roles = allowed_roles
+
+    def __call__(self, current_user: CurrentUser) -> CurrentUser:
+        if current_user.role not in self.allowed_roles:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="You don't have enough permission"
+            )
+        return current_user
+
 
 
 def get_db() -> Generator[Session]:

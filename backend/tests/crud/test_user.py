@@ -3,8 +3,8 @@ from pwdlib.hashers.bcrypt import BcryptHasher
 from sqlmodel import Session
 
 from modules.auth import auth_repository as auth_crud
-from modules.user import user_repository as crud
 from modules.auth.auth_service import verify_password
+from modules.user import user_repository as crud
 from modules.user.user_model import User, UserCreate, UserUpdate
 from tests.utils.utils import random_email, random_lower_string
 

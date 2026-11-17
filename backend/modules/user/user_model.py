@@ -1,15 +1,30 @@
-from datetime import UTC, datetime
-from typing import TYPE_CHECKING
 import uuid
+from datetime import datetime
+from enum import Enum
+from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, EmailStr
-from sqlmodel import Field, Relationship, SQLModel
+from sqlalchemy import Enum as SAEnum
+from sqlmodel import Column, Field, Relationship, SQLModel
 
 from modules.utils.utils_service import get_datetime_utc
 
-
 if TYPE_CHECKING:
     from modules.item.item_model import Item
+
+
+class Role(str, Enum):
+    ROOT   = "Superuser"
+    ADMIN  = "Admin"
+    KASEMA = "Kasema"
+    SEKJ   = "Sekjen"
+    BPI    = "Badan Pengawas Internal"
+    KOOR   = "Koordinasi"
+    KOM1   = "Komisi 1 (Legislasi)"
+    KOM2   = "Komisi 2 (Pengawasan)"
+    KOM3   = "Komisi 3 (Aspirasi)"
+    KOM4   = "Komisi 4 (Kepaniteraan)"
+    BMIP   = "Biro Media Informasi dan Publikasi"
 
 
 class UserBase(SQLModel):
@@ -17,6 +32,7 @@ class UserBase(SQLModel):
     is_active: bool = True
     is_superuser: bool = False
     full_name: str | None = Field(default=None, max_length=255)
+    role: Role = Field(default=None, sa_column=Column(SAEnum(Role)))
 
 
 class UserCreate(UserBase):
@@ -52,7 +68,7 @@ class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
     created_at: datetime | None = Field(default_factory=get_datetime_utc)
-    items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
+    items: list[Item] = Relationship(back_populates="owner", cascade_delete=True)
 
 
 # Properties to return via API, id is always required

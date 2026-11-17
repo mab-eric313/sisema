@@ -1,44 +1,33 @@
-from datetime import UTC, datetime, timedelta
+from datetime import timedelta
 from typing import Annotated, Any
-import uuid
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlmodel import col, delete, func, select
 
-from modules.auth import auth_repository as auth_crud
-from modules.user import user_repository as user_crud
 from api.deps import CurrentUser, SessionDep, get_current_active_superuser
-from modules.auth.auth_service import (
-    create_access_token,
-    generate_password_reset_token,
-    get_password_hash,
-    verify_password, 
-    verify_password_reset_token
-)
 from core.config import settings
+from modules.auth import auth_repository as auth_crud
 from modules.auth.auth_model import (
-    Message, 
+    Message,
     NewPassword,
     Token,
 )
-from modules.user.user_model import (
-    PrivateUserCreate, 
-    UpdatePassword,
-    User,
-    UserCreate, 
-    UserPublic,
-    UserRegister, 
-    UserUpdate,
-    UserUpdateMe,
-    UsersPublic,
+from modules.auth.auth_service import (
+    create_access_token,
+    generate_password_reset_token,
+    verify_password_reset_token,
 )
-from modules.item.item_model import Item
+from modules.user import user_repository as user_crud
+from modules.user.user_model import (
+    UserCreate,
+    UserPublic,
+    UserRegister,
+    UserUpdate,
+)
 from modules.utils.utils_service import (
-    generate_new_account_email, 
-    generate_reset_password_email, 
-    send_email
+    generate_reset_password_email,
+    send_email,
 )
 
 router = APIRouter(prefix="/auth", tags=["Authenticate"])

@@ -3,8 +3,8 @@ from pathlib import Path
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from core.config import settings
 from api.api import api_router
+from core.config import settings
 
 FRONTEND_DIR = Path(__file__).parent.parent / "frontend" / "dist"
 

@@ -6,7 +6,6 @@ from modules.item import item_controller
 from modules.user import user_controller
 from modules.utils import utils_controller
 
-
 api_router = APIRouter()
 api_router.include_router(test.router)
 api_router.include_router(auth_controller.router)

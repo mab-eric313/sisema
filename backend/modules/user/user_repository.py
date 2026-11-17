@@ -2,8 +2,9 @@ from typing import Any
 
 from sqlmodel import Session, select
 
+from modules.auth.auth_service import get_password_hash
 from modules.user.user_model import User, UserCreate, UserUpdate
-from modules.auth.auth_service import get_password_hash, verify_password
+
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
     db_obj = User.model_validate(

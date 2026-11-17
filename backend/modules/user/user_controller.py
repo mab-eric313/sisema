@@ -1,36 +1,31 @@
-from typing import Annotated, Any
 import uuid
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import col, delete, func, select
 
 from api.deps import CurrentUser, SessionDep, get_current_active_superuser
 from core.config import Settings
-from modules.user import user_repository as crud
 from modules.auth.auth_model import (
-    Message, 
+    Message,
 )
 from modules.auth.auth_service import (
     get_password_hash,
-    verify_password, 
-)
-from modules.user.user_model import (
-    PrivateUserCreate, 
-    UpdatePassword,
-    User,
-    UserCreate, 
-    UserPublic,
-    UserRegister, 
-    UserUpdate,
-    UserUpdateMe,
-    UsersPublic,
+    verify_password,
 )
 from modules.item.item_model import Item
-from modules.utils.utils_service import (
-    generate_new_account_email, 
-    generate_reset_password_email, 
-    send_email
+from modules.user import user_repository as crud
+from modules.user.user_model import (
+    PrivateUserCreate,
+    UpdatePassword,
+    User,
+    UserCreate,
+    UserPublic,
+    UsersPublic,
+    UserUpdate,
+    UserUpdateMe,
 )
+from modules.utils.utils_service import generate_new_account_email, send_email
 
 router = APIRouter(prefix="/user", tags=["User"])
 

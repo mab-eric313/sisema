@@ -9,7 +9,6 @@ from pwdlib.hashers.bcrypt import BcryptHasher
 
 from core.config import settings
 
-
 ALGORITHM = "HS256"
 
 

@@ -1,7 +1,7 @@
 [project]
-name = "fastapi-react"
+name = "sisema"
 version = "0.1.0"
-description = "Add your description here"
+description = "SISEMA — Sistem Informasi Senat Mahasiswa UISI"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [

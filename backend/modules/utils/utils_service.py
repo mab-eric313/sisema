@@ -1,15 +1,12 @@
 import logging
 from dataclasses import dataclass
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 import emails
-import jwt
 from jinja2 import Template
-from jwt.exceptions import InvalidTokenError
 
-from modules.auth import auth_model as security
 from core.config import settings
 
 logging.basicConfig(level=logging.INFO)

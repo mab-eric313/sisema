@@ -1,19 +1,18 @@
-from typing import Any
 import uuid
+from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException
 from sqlmodel import col, func, select
 
-from api.deps import CurrentUser, SessionDep, get_current_active_superuser
-from modules.item.item_model import (
-    Item, 
-    ItemCreate, 
-    ItemPublic, 
-    ItemUpdate, 
-    ItemsPublic
-)
+from api.deps import CurrentUser, SessionDep
 from modules.auth.auth_model import Message
-
+from modules.item.item_model import (
+    Item,
+    ItemCreate,
+    ItemPublic,
+    ItemsPublic,
+    ItemUpdate,
+)
 
 router = APIRouter(prefix="/items", tags=["items"])
 
